@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<GridPane fx:id="view" hgap="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="242.0" prefWidth="320.0" style="-fx-background-color: #d5e4e6;" vgap="1.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: GRAY; -fx-border-width: 0 0 1 0;" GridPane.columnSpan="2147483647">
+         <children>
+            <Label style="-fx-font-weight: bold;" text="IP ADRESS" />
+            <Label fx:id="ipTxt" text="nnn.nnn.nn.nn" />
+         </children>
+      </VBox>
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0" style="-fx-border-color: GRAY; -fx-border-width: 0 0 1 0;" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
+         <children>
+            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" />
+            <Label text="Registered ISP:" />
+            <Label fx:id="ispTxt" style="-fx-font-weight: bold;" text="Entidad Pública...." />
+         </children>
+      </HBox>
+      <VBox prefHeight="200.0" style="-fx-border-color: GRAY; -fx-border-width: 0 1 1 0;" GridPane.rowIndex="2">
+         <children>
+            <Label style="-fx-font-weight: bold;" text="TYPE" />
+            <Label fx:id="typeTxt" text="nnn.nnn.nn.nn" />
+         </children>
+      </VBox>
+      <VBox prefHeight="200.0" style="-fx-border-color: GRAY; -fx-border-width: 0 0 1 0;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <children>
+            <Label style="-fx-font-weight: bold;" text="ASN" />
+            <Label fx:id="asnTxt" text="nnn.nnn.nn.nn" />
+         </children>
+         <padding>
+            <Insets left="4.0" />
+         </padding>
+      </VBox>
+      <VBox prefHeight="200.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="3">
+         <children>
+            <Label style="-fx-font-weight: bold;" text="HOSTNAME" />
+            <Label fx:id="hostTxt" text="nnn.nnn.nn.nn" />
+         </children>
+      </VBox>
+   </children>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+   <columnConstraints>
+      <ColumnConstraints hgrow="ALWAYS" />
+      <ColumnConstraints hgrow="ALWAYS" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints minHeight="10.0" prefHeight="200.0" vgrow="ALWAYS" />
+      <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
+      <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
+   </rowConstraints>
+</GridPane>

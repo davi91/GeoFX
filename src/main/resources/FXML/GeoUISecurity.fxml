@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<GridPane fx:id="view" hgap="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="240.0" prefWidth="320.0" style="-fx-background-color: #d5e4e6;" vgap="1.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox alignment="CENTER_LEFT" spacing="5.0" style="-fx-border-color: GRAY; -fx-border-width: 0 0 1 0;" GridPane.columnSpan="2147483647">
+         <children>
+            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="secTxt" text="This IP is safe, no threads detected" />
+         </children>
+      </HBox>
+      <VBox style="-fx-border-color: GRAY; -fx-border-width: 0 1 1 0;" GridPane.rowIndex="2">
+         <children>
+            <Label style="-fx-font-weight: bold;" text="PROXY DETECTED?" />
+            <CheckBox fx:id="proxyBt" mnemonicParsing="false" />
+         </children>
+      </VBox>
+      <VBox layoutX="15.0" layoutY="60.0" style="-fx-border-color: GRAY; -fx-border-width: 0 0 1 0;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <children>
+            <Label style="-fx-font-weight: bold;" text="TOR DETECTED?" />
+            <CheckBox fx:id="torBt" mnemonicParsing="false" />
+         </children>
+         <padding>
+            <Insets left="4.0" />
+         </padding>
+      </VBox>
+      <VBox layoutX="15.0" layoutY="81.0" style="-fx-border-color: GRAY; -fx-border-width: 0 1 0 0;" GridPane.rowIndex="3">
+         <children>
+            <Label style="-fx-font-weight: bold;" text="CRAWLER DETECTED?" />
+            <CheckBox fx:id="crawlerBt" mnemonicParsing="false" />
+         </children>
+      </VBox>
+      <VBox layoutX="179.0" layoutY="81.0" style="-fx-border-color: GRAY; -fx-border-width: 0 0 0 0;" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <children>
+            <Label style="-fx-font-weight: bold;" text="THREAT LEVEL?" />
+            <Label fx:id="threatTxt" text="Label" />
+         </children>
+         <padding>
+            <Insets left="4.0" />
+         </padding>
+      </VBox>
+   </children>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+   <columnConstraints>
+      <ColumnConstraints hgrow="ALWAYS" />
+      <ColumnConstraints hgrow="ALWAYS" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints vgrow="ALWAYS" />
+      <RowConstraints />
+      <RowConstraints vgrow="ALWAYS" />
+      <RowConstraints vgrow="ALWAYS" />
+   </rowConstraints>
+</GridPane>

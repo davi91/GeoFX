@@ -62,6 +62,41 @@ public class RootView extends BorderPane {
 		
 		setTop(ipBox);
 		setBottom(tabPanel);
+		setAlignment(tabPanel, Pos.CENTER);
+		setStyle("-fx-background-color:  #d5e4e6");
+		
 		setPadding(new Insets(5));
+	}
+
+	public HBox getIpBox() {
+		return ipBox;
+	}
+
+	public TabPane getTabPanel() {
+		return tabPanel;
+	}
+
+	public Tab getTab_location() {
+		return tab_location;
+	}
+
+	public Tab getTab_connection() {
+		return tab_connection;
+	}
+
+	public Tab getTab_security() {
+		return tab_security;
+	}
+
+	public ImageView getConImg() {
+		return conImg;
+	}
+
+	public TextField getIpTxt() {
+		return ipTxt;
+	}
+
+	public Button getCheckBt() {
+		return checkBt;
 	}
 }

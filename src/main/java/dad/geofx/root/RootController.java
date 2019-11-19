@@ -12,6 +12,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.concurrent.Task;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -28,6 +29,10 @@ import javafx.scene.control.Alert.AlertType;
  */
 public class RootController {	
 
+	// Tarea en segundo plano
+	private Task<LocationObject> loadTask;
+	private Task<String> ipTask;
+	
 	// Referencia a nuestra aplicación
 	private GeoApp app;
 	
@@ -50,17 +55,16 @@ public class RootController {
 		
 		this.app = app;
 		
-		// Lo primero que realizamos es ajustar el modelo
+		// Nada más inicializarse necesitamos llamar a la IP
+		loadIPTask();
+		
+		// Cada vez que le demos a que revise la IP
+		view.getCheckBt().setOnAction( evt -> onCheckAction());
+
 		view.getIpTxt().textProperty().bind(ip);
 		view.getTab_location().contentProperty().bind(tab_location);
 		view.getTab_connection().contentProperty().bind(tab_connection);
 		view.getTab_security().contentProperty().bind(tab_security);
-		
-		// Nada más inicializarse necesitamos llamar a la IP
-		ip.set(this.app.getUnirestObject().getUserIP());
-		
-		// Cada vez que le demos a que revise la IP
-		view.getCheckBt().setOnAction( evt -> onCheckAction());
 		
 		// Inicializamos los tabs
 		try {
@@ -75,21 +79,69 @@ public class RootController {
 		} catch (IOException e) {
 			sendInitializeError();
 		}
+	}
+	
+	private void loadIPTask() {
 		
-		// Cargamos los datos de localización del usuario
-		sendLocationInfoRequest();
+		// Pedimos la IP como tarea en segundo plano
+		ipTask = new Task<String>() {
+
+			@Override
+			protected String call() throws Exception {
+				return app.getUnirestObject().getUserIP();
+			}
+			
+		};
+		
+		view.getCheckBt().disableProperty().bind(ipTask.runningProperty());
+		
+		ipTask.setOnSucceeded(e -> {
+			ip.set((String)e.getSource().getValue());
+			sendLocationInfoRequest();
+		});
+		
+		ipTask.setOnFailed( e-> {
+			sendInitializeError();
+		});
+		
+		new Thread(ipTask).start();
+		
 	}
 	
 	private void onCheckAction() {
-		ip.set(this.app.getUnirestObject().getUserIP());
-		sendLocationInfoRequest();
+		loadIPTask();
 	}
 	
 	private void sendLocationInfoRequest() {
 		
-		LocationObject locationInfo = app.getUnirestObject().getLocationInfo(ip.get());
-		location_controller.setupLocationData(locationInfo);
-		connection_controller.setupConnection(locationInfo.getType()); // Lo único que le podemos pasar es el tipo de la IP
+		final String myIP = ip.get();
+		
+		if( myIP == null )
+			return;
+		
+		loadTask = new Task<LocationObject>() {
+
+			@Override
+			protected LocationObject call() throws Exception {	
+				return app.getUnirestObject().getLocationInfo(myIP);
+			}
+			
+		};
+		
+		view.getCheckBt().disableProperty().bind(loadTask.runningProperty());
+		
+		loadTask.setOnSucceeded( e -> {
+			
+			location_controller.setupLocationData((LocationObject)e.getSource().getValue());
+			connection_controller.setupConnection(((LocationObject)e.getSource().getValue()).getType()); // Lo único que le podemos pasar es el tipo de la IP	
+			
+		});
+		
+		loadTask.setOnFailed( e-> {
+			sendInitializeError();
+		});
+
+		new Thread(loadTask).start();
 	}
 
 	private void sendInitializeError() {

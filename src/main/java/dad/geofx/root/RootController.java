@@ -3,7 +3,9 @@ package dad.geofx.root;
 import java.io.IOException;
 
 import dad.geofx.main.GeoApp;
+import dad.geofx.tabs.ConnectionController;
 import dad.geofx.tabs.LocationController;
+import dad.geofx.tabs.SecurityController;
 import dad.geofx.utils.LocationObject;
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
@@ -19,7 +21,7 @@ import javafx.scene.control.Alert.AlertType;
  * de todas ellas.
  * 
  * Sólo tendrá funcionalidad la pestaña la localización puesto que la versión gratuita
- * de al API Rest de "ipapi" sólo cubre esa  categoría.
+ * de al API Rest de "ipapi" sólo cubre esa categoría.
  * 
  * @author David Fernández Nieves
  *
@@ -31,6 +33,8 @@ public class RootController {
 	
 	// Nuestras pestañas
 	LocationController location_controller;
+	ConnectionController connection_controller;
+	SecurityController security_controller;
 	
 	// View
 	private RootView view = new RootView();
@@ -49,12 +53,11 @@ public class RootController {
 		// Lo primero que realizamos es ajustar el modelo
 		view.getIpTxt().textProperty().bind(ip);
 		view.getTab_location().contentProperty().bind(tab_location);
-		
+		view.getTab_connection().contentProperty().bind(tab_connection);
+		view.getTab_security().contentProperty().bind(tab_security);
 		
 		// Nada más inicializarse necesitamos llamar a la IP
-	//	ip.set(this.app.getUnirestObject().getUserIP());
-		
-		ip.set("193.146.93.30"); // DEBUG
+		ip.set(this.app.getUnirestObject().getUserIP());
 		
 		// Cada vez que le demos a que revise la IP
 		view.getCheckBt().setOnAction( evt -> onCheckAction());
@@ -62,7 +65,12 @@ public class RootController {
 		// Inicializamos los tabs
 		try {
 			location_controller = new LocationController();
+			connection_controller = new ConnectionController();
+			security_controller = new SecurityController();
+			
 			tab_location.set(location_controller.getRootView());
+			tab_connection.set(connection_controller.getRootView());
+			tab_security.set(security_controller.getRootView());
 			
 		} catch (IOException e) {
 			sendInitializeError();
@@ -74,12 +82,14 @@ public class RootController {
 	
 	private void onCheckAction() {
 		ip.set(this.app.getUnirestObject().getUserIP());
+		sendLocationInfoRequest();
 	}
 	
 	private void sendLocationInfoRequest() {
 		
 		LocationObject locationInfo = app.getUnirestObject().getLocationInfo(ip.get());
 		location_controller.setupLocationData(locationInfo);
+		connection_controller.setupConnection(locationInfo.getType()); // Lo único que le podemos pasar es el tipo de la IP
 	}
 
 	private void sendInitializeError() {

@@ -7,7 +7,12 @@ public class LocationObject {
 	private String city;
 	private String region_name;
 	private String zip;
+	private String type;
 	
+	public String getType() {
+		return type;
+	}
+
 	public String getRegion_name() {
 		return region_name;
 	}
@@ -35,6 +40,14 @@ public class LocationObject {
 
 	public String getCity() {
 		return city;
+	}
+
+	public void setRegion_name(String region_name) {
+		this.region_name = region_name;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public void setCity(String city) {

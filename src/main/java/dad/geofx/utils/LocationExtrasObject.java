@@ -18,16 +18,6 @@ public class LocationExtrasObject {
 	
 	public Language[] languages;
 	
-	private String country_flag;
-	
-	public String getCountry_flag() {
-		return country_flag;
-	}
-
-	public void setCountry_flag(String country_flag) {
-		this.country_flag = country_flag;
-	}
-
 	public Language[] getLanguages() {
 		return languages;
 	}

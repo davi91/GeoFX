@@ -59,10 +59,14 @@ public class RootView extends BorderPane {
 		tab_security = new Tab("Security");
 		
 		tabPanel.getTabs().addAll(tab_location, tab_connection, tab_security);
+		tabPanel.setMaxWidth(Double.MAX_VALUE);
+		tabPanel.setMaxHeight(Double.MAX_VALUE);
 		
 		setTop(ipBox);
 		setBottom(tabPanel);
 		setAlignment(tabPanel, Pos.CENTER);
+
+		
 		setStyle("-fx-background-color:  #d5e4e6");
 		
 		setPadding(new Insets(5));

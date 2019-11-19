@@ -27,6 +27,10 @@ public class LocationModel {
 	private StringProperty language_cod = new SimpleStringProperty();
 	
 	private StringProperty call = new SimpleStringProperty();
+	
+	// Variables que no nos aporta la API Rest
+	private StringProperty timeZone = new SimpleStringProperty("N/A");
+	private StringProperty currency = new SimpleStringProperty("N/A");
 
 	public final StringProperty paisProperty() {
 		return this.pais;
@@ -166,6 +170,37 @@ public class LocationModel {
 	public final void setLongitud(final double longitud) {
 		this.longitudProperty().set(longitud);
 	}
+
+
+	public final StringProperty currencyProperty() {
+		return this.currency;
+	}
+	
+
+	public final String getCurrency() {
+		return this.currencyProperty().get();
+	}
+	
+
+	public final void setCurrency(final String currency) {
+		this.currencyProperty().set(currency);
+	}
+
+	public final StringProperty timeZoneProperty() {
+		return this.timeZone;
+	}
+	
+
+	public final String getTimeZone() {
+		return this.timeZoneProperty().get();
+	}
+	
+
+	public final void setTimeZone(final String timeZone) {
+		this.timeZoneProperty().set(timeZone);
+	}
+	
+	
 	
 	
 	

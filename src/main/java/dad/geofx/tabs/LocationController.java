@@ -15,6 +15,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.util.converter.NumberStringConverter;
 
+/**
+ *  Controlador de la pestaña "Localización". No todos los datos nos lo
+ *  ofrece la API Rest en versión gratuita, por lo que tendrán valores
+ *  desconocidos.
+ *  
+ * @author David Fernández Nieves
+ *
+ */
 public class LocationController implements Initializable {
 
 	// View : FXML
@@ -61,12 +69,16 @@ public class LocationController implements Initializable {
 		Bindings.bindBidirectional(latitudLbl.textProperty(), model.latitudProperty(), new NumberStringConverter());
 		Bindings.bindBidirectional(longitudLbl.textProperty(), model.longitudProperty(), new NumberStringConverter());
 		
-	//	flagImg.imageProperty().bind(model.flagIconProperty());
+		flagImg.imageProperty().bind(model.flagIconProperty());
 		
 		locationLbl.textProperty().bind( Bindings.concat(model.paisProperty(), " (", model.pais_codProperty(), ")"));
 		conLocationLbl.textProperty().bind( Bindings.concat(  model.ciudadProperty(), " (", model.estadoProperty(), ")"));
 		zipLbl.textProperty().bind(model.zipProperty());
 		callLbl.textProperty().bind(Bindings.concat("+", model.callProperty()));
+		
+		// Las que no nos da la API Rest
+		currencyLbl.textProperty().bind(model.currencyProperty());
+		timeLbl.textProperty().bind(model.timeZoneProperty());
 		
 	}
 
@@ -81,6 +93,8 @@ public class LocationController implements Initializable {
 		
 		model.setPais(info.getCountry_name());
 		model.setPais_cod(info.getCountry_code());
+		
+		model.setFlagIcon( new Image(getClass().getResource("/images/flags/" + info.getCountry_code() + ".png").toString()));
 		
 		model.setCiudad(info.getCity());
 		model.setEstado(info.getRegion_name());
